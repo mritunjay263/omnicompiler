@@ -1,0 +1,28 @@
+[
+  {
+    "id": "2xnx8pp",
+    "title": "Java Snippet",
+    "language": "java",
+    "files": [
+      {
+        "name": "Main.java",
+        "content": "// Java Online Compiler & Runner\nimport java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        System.out.println(\"=== Java 21 Online Compiler ===\");\n        \n        List<String> languages = Arrays.asList(\"Java\", \"Kotlin\", \"Scala\", \"Groovy\");\n        System.out.println(\"JVM Languages: \" + languages);\n        \n        int[] scores = {95, 82, 88, 74, 91};\n        double average = Arrays.stream(scores).average().orElse(0.0);\n        System.out.printf(\"Average Score: %.2f%n\", average);\n        \n        System.out.println(\"Status: Java executed successfully!\");\n    }\n}\n"
+      }
+    ],
+    "stdin": "OneCompiler 2026",
+    "createdAt": "2026-10-26T17:29:31.436Z"
+  },
+  {
+    "id": "y890dfh",
+    "title": "Test Snippet",
+    "language": "python",
+    "files": [
+      {
+        "name": "main.py",
+        "content": "print(123)"
+      }
+    ],
+    "stdin": "",
+    "createdAt": "2026-10-26T17:18:42.882Z"
+  }
+]
