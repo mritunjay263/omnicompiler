@@ -14,14 +14,14 @@ import {
   Search,
   Sparkles,
   ChevronDown,
-  Code2,
-  Database,
-  Globe,
   FileCode,
   Check,
-  Terminal,
+  HelpCircle,
+  X,
+  Keyboard,
 } from 'lucide-react';
 import { LANGUAGES, LanguageConfig } from '@/lib/languages';
+import { BRAND } from '@/lib/brand';
 import { useTheme } from './ThemeProvider';
 
 interface NavbarProps {
@@ -55,6 +55,7 @@ export function Navbar({
   const { theme, toggleTheme } = useTheme();
   const [langDropdownOpen, setLangDropdownOpen] = useState(false);
   const [templateDropdownOpen, setTemplateDropdownOpen] = useState(false);
+  const [shortcutsModalOpen, setShortcutsModalOpen] = useState(false);
   const [copiedShare, setCopiedShare] = useState(false);
 
   const handleDownload = () => {
@@ -63,7 +64,7 @@ export function Navbar({
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = activeFileName || `code${currentLanguage.extension}`;
+    a.download = activeFileName || `main${currentLanguage.extension}`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -82,14 +83,20 @@ export function Navbar({
         {/* Left: Brand & Language Picker */}
         <div className="flex items-center gap-3">
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="h-8 w-8 rounded-lg bg-gradient-to-tr from-indigo-600 via-indigo-500 to-emerald-400 flex items-center justify-center text-white font-black text-lg shadow-md group-hover:scale-105 transition-transform">
-              &lt;/&gt;
+            {/* Custom Brand Icon: Glowing Geometric Polyglot Cube */}
+            <div className="relative h-8 w-8 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 p-[1px] shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform">
+              <div className="flex h-full w-full items-center justify-center rounded-[11px] bg-slate-950 font-black text-xs text-white">
+                <span className="bg-gradient-to-r from-indigo-400 to-cyan-300 bg-clip-text text-transparent font-mono">
+                  Ω
+                </span>
+              </div>
             </div>
+
             <div className="hidden sm:flex flex-col">
-              <span className="font-extrabold tracking-tight text-lg text-[var(--text-primary)] flex items-center gap-1.5">
-                OneCompiler
-                <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                  v2.0
+              <span className="font-black tracking-tight text-lg text-[var(--text-primary)] flex items-center gap-1.5">
+                {BRAND.name}
+                <span className="text-[10px] font-bold px-1.5 py-0.2 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/30">
+                  PROD
                 </span>
               </span>
             </div>
@@ -114,9 +121,9 @@ export function Navbar({
                   className="fixed inset-0 z-40"
                   onClick={() => setLangDropdownOpen(false)}
                 />
-                <div className="absolute left-0 mt-2 w-64 rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-2 shadow-2xl z-50 max-h-96 overflow-y-auto">
+                <div className="absolute left-0 mt-2 w-64 rounded-2xl border border-[var(--border-color)] bg-[var(--bg-card)] p-2 shadow-2xl z-50 max-h-96 overflow-y-auto">
                   <div className="px-2 py-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)]">
-                    Popular Compilers
+                    Supported Runtimes
                   </div>
                   {Object.values(LANGUAGES).map((lang) => (
                     <button
@@ -161,7 +168,7 @@ export function Navbar({
                     className="fixed inset-0 z-40"
                     onClick={() => setTemplateDropdownOpen(false)}
                   />
-                  <div className="absolute left-0 mt-2 w-72 rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-2 shadow-2xl z-50">
+                  <div className="absolute left-0 mt-2 w-72 rounded-2xl border border-[var(--border-color)] bg-[var(--bg-card)] p-2 shadow-2xl z-50">
                     <div className="px-2 py-1 text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)]">
                       Code Boilerplates
                     </div>
@@ -172,7 +179,7 @@ export function Navbar({
                           onSelectTemplate(tpl.code, tpl.stdin);
                           setTemplateDropdownOpen(false);
                         }}
-                        className="w-full text-left p-2 rounded-lg hover:bg-[var(--bg-panel)] transition-colors group"
+                        className="w-full text-left p-2 rounded-xl hover:bg-[var(--bg-panel)] transition-colors group"
                       >
                         <div className="text-xs font-semibold text-[var(--text-primary)] group-hover:text-indigo-400">
                           {tpl.name}
@@ -193,7 +200,7 @@ export function Navbar({
         <div className="hidden lg:flex items-center">
           <button
             onClick={onOpenSearch}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[var(--border-color)] bg-[var(--bg-panel)] text-xs text-[var(--text-secondary)] hover:border-indigo-500/50 hover:text-[var(--text-primary)] transition-all w-52 justify-between"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-[var(--border-color)] bg-[var(--bg-panel)] text-xs text-[var(--text-secondary)] hover:border-indigo-500/50 hover:text-[var(--text-primary)] transition-all w-52 justify-between"
           >
             <span className="flex items-center gap-2">
               <Search className="h-3.5 w-3.5" />
@@ -211,7 +218,7 @@ export function Navbar({
           {onOpenAi && (
             <button
               onClick={onOpenAi}
-              title="AI Code Assistant (Explain, Fix, Optimize)"
+              title="AI Code Copilot"
               className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-purple-500/30 bg-purple-500/10 hover:bg-purple-500/20 text-purple-400 text-xs font-semibold transition-all"
             >
               <Sparkles className="h-3.5 w-3.5 animate-pulse" />
@@ -223,7 +230,7 @@ export function Navbar({
           {onFormat && (
             <button
               onClick={onFormat}
-              title="Format Code (Alt+Shift+F)"
+              title="Format Code (Shift+Alt+F)"
               className="p-1.5 md:px-2 md:py-1.5 rounded-lg border border-[var(--border-color)] bg-[var(--bg-panel)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-indigo-500/50 text-xs transition-all flex items-center gap-1"
             >
               <AlignLeft className="h-3.5 w-3.5" />
@@ -252,7 +259,16 @@ export function Navbar({
             }`}
           >
             {copiedShare ? <Check className="h-3.5 w-3.5" /> : <Share2 className="h-3.5 w-3.5" />}
-            <span className="hidden sm:inline">{copiedShare ? 'Copied!' : 'Share'}</span>
+            <span className="hidden sm:inline">{copiedShare ? 'Copied Link!' : 'Share'}</span>
+          </button>
+
+          {/* Shortcuts Info */}
+          <button
+            onClick={() => setShortcutsModalOpen(true)}
+            title="Keyboard Shortcuts"
+            className="p-1.5 md:p-2 rounded-lg border border-[var(--border-color)] bg-[var(--bg-panel)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-indigo-500/50 transition-all hidden md:block"
+          >
+            <HelpCircle className="h-3.5 w-3.5" />
           </button>
 
           {/* Theme Toggle */}
@@ -291,6 +307,56 @@ export function Navbar({
           </button>
         </div>
       </div>
+
+      {/* Keyboard Shortcuts Modal */}
+      {shortcutsModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+          <div
+            className="w-full max-w-md rounded-2xl border border-[var(--border-color)] bg-[var(--bg-card)] shadow-2xl p-5"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between pb-3 border-b border-[var(--border-color)]">
+              <div className="flex items-center gap-2 font-bold text-sm text-[var(--text-primary)]">
+                <Keyboard className="h-4 w-4 text-indigo-400" />
+                <span>Keyboard Shortcuts</span>
+              </div>
+              <button
+                onClick={() => setShortcutsModalOpen(false)}
+                className="p-1 rounded-md text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+
+            <div className="mt-4 space-y-3 text-xs">
+              <div className="flex justify-between items-center py-1 border-b border-[var(--border-color)]/50">
+                <span className="text-[var(--text-secondary)]">Run Code</span>
+                <kbd className="px-2 py-0.5 rounded bg-[var(--bg-panel)] font-mono text-[var(--text-primary)] border border-[var(--border-color)]">
+                  ⌘ / Ctrl + Enter
+                </kbd>
+              </div>
+              <div className="flex justify-between items-center py-1 border-b border-[var(--border-color)]/50">
+                <span className="text-[var(--text-secondary)]">Search Compilers</span>
+                <kbd className="px-2 py-0.5 rounded bg-[var(--bg-panel)] font-mono text-[var(--text-primary)] border border-[var(--border-color)]">
+                  ⌘ / Ctrl + K
+                </kbd>
+              </div>
+              <div className="flex justify-between items-center py-1 border-b border-[var(--border-color)]/50">
+                <span className="text-[var(--text-secondary)]">Format Document</span>
+                <kbd className="px-2 py-0.5 rounded bg-[var(--bg-panel)] font-mono text-[var(--text-primary)] border border-[var(--border-color)]">
+                  Shift + Alt + F
+                </kbd>
+              </div>
+              <div className="flex justify-between items-center py-1">
+                <span className="text-[var(--text-secondary)]">Close Dialogs</span>
+                <kbd className="px-2 py-0.5 rounded bg-[var(--bg-panel)] font-mono text-[var(--text-primary)] border border-[var(--border-color)]">
+                  Esc
+                </kbd>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </header>
   );
 }

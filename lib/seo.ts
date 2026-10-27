@@ -1,27 +1,35 @@
 import { LanguageConfig } from './languages';
+import { BRAND } from './brand';
 
 export function generateLanguageSchema(language: LanguageConfig) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://onecompiler.com';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || BRAND.url;
 
   const webAppSchema = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
-    name: `${language.name} Online Compiler & Interpreter`,
+    name: `${language.name} Online Compiler & Real-Time IDE - ${BRAND.name}`,
     url: `${baseUrl}/${language.id}`,
     applicationCategory: 'DeveloperApplication',
     operatingSystem: 'All',
+    browserRequirements: 'Requires JavaScript and HTML5 support',
     description: language.seo.description,
     offers: {
       '@type': 'Offer',
       price: '0.00',
       priceCurrency: 'USD',
     },
+    creator: {
+      '@type': 'Organization',
+      name: BRAND.name,
+      url: baseUrl,
+    },
     featureList: [
-      `Write, compile, and run ${language.name} online with zero setup`,
-      'Standard input (STDIN) support for interactive programs',
-      'Instant real-time execution with CPU time and memory metrics',
-      'Download code and share snippets with custom URLs',
-      'Interactive syntax help, tutorials, and boilerplate templates',
+      `Write, compile, and run ${language.name} code with zero installation`,
+      'Interactive standard input (STDIN) console streaming',
+      'Real-time execution duration in milliseconds and memory consumption metrics',
+      'Instant snippet persistence and shareable links',
+      'Embedded syntax documentation, data structures, and boilerplate templates',
+      'Integrated AI copilot for step-by-step code explanation and bug remediation',
     ],
   };
 
@@ -31,26 +39,34 @@ export function generateLanguageSchema(language: LanguageConfig) {
     mainEntity: [
       {
         '@type': 'Question',
-        name: `How do I run ${language.name} code online without installation?`,
+        name: `How do I compile and run ${language.name} online without local setup?`,
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `You can write, compile, and run ${language.name} programs directly in your browser using OneCompiler. Simply select your template, write your code, provide optional STDIN inputs, and click the green 'Run' button.`,
+          text: `You can execute ${language.name} directly in your browser using ${BRAND.name}. Simply load your code or choose a boilerplate template, provide optional standard inputs in the STDIN tab, and click Run (or press Cmd/Ctrl + Enter).`,
         },
       },
       {
         '@type': 'Question',
-        name: `Can I provide standard inputs (stdin) to ${language.name} programs?`,
+        name: `Does ${BRAND.name} support user input (STDIN) in ${language.name}?`,
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `Yes! OneCompiler includes a dedicated STDIN tab right next to the code editor. Any interactive inputs expected by your program will be read directly from this input area.`,
+          text: `Yes! ${BRAND.name} features an interactive STDIN tab adjacent to the editor. Any console inputs anticipated by your code (e.g. input() in Python, Scanner in Java, or cin in C++) are streamed during execution.`,
         },
       },
       {
         '@type': 'Question',
-        name: `What version of ${language.name} is supported?`,
+        name: `Which version of ${language.name} is supported by ${BRAND.name}?`,
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `OneCompiler supports ${language.name} version ${language.version} with popular standard libraries and modern language features enabled.`,
+          text: `${BRAND.name} runs ${language.name} version ${language.version} with popular standard libraries and modern language features enabled.`,
+        },
+      },
+      {
+        '@type': 'Question',
+        name: `Can I save and share my ${language.name} programs?`,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: `Yes. Click the Share button in the navigation bar to generate an instant unique URL that encodes your source files and inputs for collaborative sharing or classroom demonstrations.`,
         },
       },
     ],
@@ -63,7 +79,7 @@ export function generateLanguageSchema(language: LanguageConfig) {
       {
         '@type': 'ListItem',
         position: 1,
-        name: 'Home',
+        name: BRAND.name,
         item: baseUrl,
       },
       {
@@ -75,7 +91,7 @@ export function generateLanguageSchema(language: LanguageConfig) {
       {
         '@type': 'ListItem',
         position: 3,
-        name: language.name,
+        name: `${language.name} Compiler`,
         item: `${baseUrl}/${language.id}`,
       },
     ],

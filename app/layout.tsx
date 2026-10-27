@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/ThemeProvider';
+import { BRAND } from '@/lib/brand';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -14,28 +15,34 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'OneCompiler - Write, run and share code online | Free online compiler with 110+ languages',
-  description:
-    'Free online compiler and editor with 110+ programming languages and databases. Write, compile, interpret, debug, and share code online with stdin support and instant execution.',
+  title: `${BRAND.name} - Instant Cloud & Local Polyglot IDE | 110+ Compilers`,
+  description: `${BRAND.description} Zero setup, sub-second latency, multi-file projects, and integrated AI copilot.`,
   keywords: [
     'online compiler',
-    'online code runner',
+    'polyglot ide',
     'python online compiler',
     'c++ online compiler',
-    'javascript online compiler',
+    'javascript online runner',
     'java online compiler',
-    'sql online playground',
-    'free code runner',
+    'c# online ide',
+    'rust online compiler',
+    'go online compiler',
+    'sql online runner',
+    'free online ide',
   ],
-  authors: [{ name: 'OneCompiler' }],
-  icons: {
-    icon: '/favicon.ico',
-  },
+  authors: [{ name: BRAND.name }],
+  metadataBase: new URL(BRAND.url),
   openGraph: {
-    title: 'OneCompiler - Write, run and share code online',
-    description: 'Free online compiler and editor with 110+ programming languages and databases.',
-    siteName: 'OneCompiler',
+    title: `${BRAND.name} - Instant In-Browser Polyglot IDE`,
+    description: BRAND.description,
+    siteName: BRAND.name,
     type: 'website',
+    url: BRAND.url,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `${BRAND.name} - Code, Compile & Run in Real Time`,
+    description: BRAND.description,
   },
 };
 
@@ -46,7 +53,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col font-sans">
+      <body className="min-h-full flex flex-col font-sans selection:bg-indigo-500 selection:text-white">
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>

@@ -46,7 +46,7 @@ export async function runLocally(options: RunOptions): Promise<ExecutionResult> 
     };
   }
 
-  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'onecompiler_'));
+  const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'omnicompiler_'));
   const startTime = Date.now();
 
   try {

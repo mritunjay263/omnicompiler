@@ -6,6 +6,8 @@ import { generateLanguageSchema } from '@/lib/seo';
 import { Workspace } from '@/components/Workspace';
 import { LanguageSeoSection } from '@/components/LanguageSeoSection';
 
+import { BRAND } from '@/lib/brand';
+
 interface PageProps {
   params: Promise<{ language: string }>;
 }
@@ -22,23 +24,23 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!config) {
     return {
-      title: 'Compiler Not Found - OneCompiler',
+      title: `Compiler Not Found - ${BRAND.name}`,
     };
   }
 
   return {
-    title: config.seo.title,
+    title: `${config.seo.title} | ${BRAND.name}`,
     description: config.seo.description,
     keywords: config.seo.keywords,
     openGraph: {
-      title: config.seo.title,
+      title: `${config.seo.title} | ${BRAND.name}`,
       description: config.seo.description,
       type: 'website',
-      url: `https://onecompiler.com/${config.id}`,
+      url: `${BRAND.url}/${config.id}`,
     },
     twitter: {
       card: 'summary_large_image',
-      title: config.seo.title,
+      title: `${config.seo.title} | ${BRAND.name}`,
       description: config.seo.description,
     },
   };

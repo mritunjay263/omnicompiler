@@ -1,8 +1,9 @@
 import { MetadataRoute } from 'next';
 import { LANGUAGES } from '@/lib/languages';
+import { BRAND } from '@/lib/brand';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://onecompiler.com';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || BRAND.url;
 
   const languageEntries: MetadataRoute.Sitemap = Object.keys(LANGUAGES).map((lang) => ({
     url: `${baseUrl}/${lang}`,

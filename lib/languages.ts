@@ -49,7 +49,7 @@ export const LANGUAGES: Record<string, LanguageConfig> = {
 import sys
 
 def greet(name):
-    return f"Hello, {name}! Welcome to OneCompiler."
+    return f"Hello, {name}! Welcome to OmniCompiler."
 
 print("=== Python 3 Playground ===")
 user_name = "Developer"
@@ -92,7 +92,7 @@ print(f"Sum of evens: {sum(evens)}")
     ],
     seo: {
       title: 'Python Online Compiler & Interpreter - Free Code Runner',
-      description: 'Write, run, debug, and share Python code online with OneCompiler. Supports Python 3, stdin inputs, data science algorithms, and fast execution.',
+      description: 'Write, run, debug, and share Python code online with OmniCompiler. Supports Python 3, stdin inputs, data science algorithms, and fast execution.',
       keywords: ['python online compiler', 'python interpreter online', 'run python 3', 'python code runner', 'python ide online'],
     },
     overview: 'Python is a high-level, interpreted programming language created by Guido van Rossum and released in 1991. Known for its clean syntax and readability, Python powers everything from web applications and automated scripting to artificial intelligence, machine learning, and data science.',
@@ -175,7 +175,7 @@ simulateAsyncWork().then(console.log);
       },
     ],
     seo: {
-      title: 'JavaScript Online Compiler & Node.js Runner - OneCompiler',
+      title: 'JavaScript Online Compiler & Node.js Runner - OmniCompiler',
       description: 'Run JavaScript and Node.js online. Test ES6+ features, async/await, modern algorithms, and APIs with zero setup.',
       keywords: ['javascript online compiler', 'run javascript online', 'nodejs online compiler', 'javascript playground', 'js runner'],
     },
@@ -249,7 +249,7 @@ int main() {
       },
     ],
     seo: {
-      title: 'C++ Online Compiler & Runner (C++20/C++17) - OneCompiler',
+      title: 'C++ Online Compiler & Runner (C++20/C++17) - OmniCompiler',
       description: 'Write, compile, and run C++ code online with instant execution. High performance, Clang/GCC compiler support, STL algorithms, and stdin support.',
       keywords: ['c++ online compiler', 'run c++ online', 'cpp online ide', 'c++ 20 online compiler', 'compile cpp online'],
     },
@@ -309,7 +309,7 @@ int main() {
       },
     ],
     seo: {
-      title: 'C Online Compiler & GCC/Clang Runner - OneCompiler',
+      title: 'C Online Compiler & GCC/Clang Runner - OmniCompiler',
       description: 'Free online C compiler and runner. Write, compile, and debug C programs with standard input support, memory pointers, and instant output.',
       keywords: ['c online compiler', 'run c online', 'c language online', 'c ide', 'compile c code'],
     },
@@ -351,7 +351,7 @@ public class Main {
     }
 }
 `,
-    defaultStdin: 'OneCompiler 2026',
+    defaultStdin: 'OmniCompiler 2026',
     templates: [
       {
         name: 'Hello World',
@@ -366,7 +366,7 @@ public class Main {
       },
     ],
     seo: {
-      title: 'Java Online Compiler & IDE (Java 21) - OneCompiler',
+      title: 'Java Online Compiler & IDE (Java 21) - OmniCompiler',
       description: 'Write, compile, and run Java code online. Supports Java 21, Scanner stdin, collections, object-oriented programming, and multi-file projects.',
       keywords: ['java online compiler', 'run java online', 'java ide online', 'compile java 21', 'java code runner'],
     },
@@ -394,7 +394,7 @@ public class Main {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>OneCompiler Web Studio</title>
+  <title>OmniCompiler Web Studio</title>
   <style>
     body {
       font-family: system-ui, -apple-system, sans-serif;
@@ -483,7 +483,7 @@ public class Main {
       },
     ],
     seo: {
-      title: 'HTML, CSS & JavaScript Online Editor & Live Preview - OneCompiler',
+      title: 'HTML, CSS & JavaScript Online Editor & Live Preview - OmniCompiler',
       description: 'Live online HTML5, CSS3, and JavaScript code runner. Write code and see instant split-screen preview, inspect console logs, and share snippets.',
       keywords: ['html online editor', 'html css js runner', 'web playground', 'html live preview', 'frontend runner'],
     },
@@ -554,11 +554,11 @@ WHERE salary >= 100000;
       },
     ],
     seo: {
-      title: 'SQL Online Compiler & Database Runner (SQLite, MySQL, Postgres) - OneCompiler',
+      title: 'SQL Online Compiler & Database Runner (SQLite, MySQL, Postgres) - OmniCompiler',
       description: 'Write, execute, and visualize SQL queries online. Interactive table output, pre-seeded schemas, JOINs, aggregations, and zero server setup.',
       keywords: ['sql online compiler', 'run sql queries online', 'sqlite online runner', 'mysql online editor', 'sql playground'],
     },
-    overview: 'SQL (Structured Query Language) is the domain-specific language used for managing and querying relational database management systems (RDBMS). OneCompiler executes queries with interactive visual table rendering and column inspection.',
+    overview: 'SQL (Structured Query Language) is the domain-specific language used for managing and querying relational database management systems (RDBMS). OmniCompiler executes queries with interactive visual table rendering and column inspection.',
     stdinHelp: 'SQL execution produces tabulated result sets. Run queries sequentially (DDL: CREATE/INSERT, DML: SELECT) to view tabular data in the Table View tab.',
     syntaxHelp: [
       {
@@ -609,7 +609,7 @@ fn main() {
       },
     ],
     seo: {
-      title: 'Rust Online Compiler & Playground - OneCompiler',
+      title: 'Rust Online Compiler & Playground - OmniCompiler',
       description: 'Compile and run Rust code online with zero installation. Features Rust standard library, iterators, pattern matching, and instant execution.',
       keywords: ['rust online compiler', 'run rust online', 'rust playground', 'compile rust code'],
     },
@@ -660,7 +660,7 @@ func main() {
       },
     ],
     seo: {
-      title: 'Go (Golang) Online Compiler & Runner - OneCompiler',
+      title: 'Go (Golang) Online Compiler & Runner - OmniCompiler',
       description: 'Write, compile, and run Golang code online with fast execution. Supports Goroutines, slices, standard library, and stdin inputs.',
       keywords: ['go online compiler', 'golang runner', 'run go online', 'go ide'],
     },
@@ -709,7 +709,7 @@ class Program {
       },
     ],
     seo: {
-      title: 'C# Online Compiler (.NET 8) - OneCompiler',
+      title: 'C# Online Compiler (.NET 8) - OmniCompiler',
       description: 'Run C# code online. Supports LINQ, object-oriented principles, .NET 8 features, and stdin input with zero installation.',
       keywords: ['c# online compiler', 'csharp runner', 'run c# online', 'dotnet online'],
     },
@@ -758,7 +758,7 @@ echo "JSON Output: " . json_encode($data, JSON_PRETTY_PRINT) . "\n";
       },
     ],
     seo: {
-      title: 'PHP Online Compiler & Interpreter (PHP 8.3) - OneCompiler',
+      title: 'PHP Online Compiler & Interpreter (PHP 8.3) - OmniCompiler',
       description: 'Run PHP scripts online. Test PHP 8 syntax, arrays, JSON functions, regex, and algorithms with instant execution.',
       keywords: ['php online compiler', 'run php online', 'php runner', 'php online editor'],
     },
@@ -799,7 +799,7 @@ puts "Sum: #{cubes.sum}"
       },
     ],
     seo: {
-      title: 'Ruby Online Compiler & Interactive Runner - OneCompiler',
+      title: 'Ruby Online Compiler & Interactive Runner - OmniCompiler',
       description: 'Run Ruby code online. Test blocks, enumerables, OOP classes, and gems with zero setup.',
       keywords: ['ruby online compiler', 'run ruby online', 'ruby code runner', 'ruby ide'],
     },
@@ -844,7 +844,7 @@ echo "Lift off! Bash executed successfully."
       },
     ],
     seo: {
-      title: 'Bash Online Compiler & Shell Script Runner - OneCompiler',
+      title: 'Bash Online Compiler & Shell Script Runner - OmniCompiler',
       description: 'Run Bash shell scripts online. Test Linux CLI commands, loops, conditionals, and variables in a secure sandbox.',
       keywords: ['bash online compiler', 'run bash script online', 'shell script runner', 'linux terminal online'],
     },
@@ -895,7 +895,7 @@ team.forEach(member => console.log(printUserDetails(member)));
       },
     ],
     seo: {
-      title: 'TypeScript Online Compiler & Sandbox - OneCompiler',
+      title: 'TypeScript Online Compiler & Sandbox - OmniCompiler',
       description: 'Compile and execute TypeScript online with instant type checking, interfaces, generics, and ESNext support.',
       keywords: ['typescript online compiler', 'run typescript online', 'ts playground', 'typescript runner'],
     },

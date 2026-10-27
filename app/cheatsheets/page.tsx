@@ -2,12 +2,12 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { BookOpen, Search, ArrowRight, Copy, Check, Terminal } from 'lucide-react';
+import { BookOpen, ArrowRight, Copy, Check, Terminal, Sparkles } from 'lucide-react';
 import { LANGUAGES } from '@/lib/languages';
+import { BRAND } from '@/lib/brand';
 
 export default function CheatsheetsPage() {
   const [selectedLang, setSelectedLang] = useState('python');
-  const [search, setSearch] = useState('');
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
   const lang = LANGUAGES[selectedLang] || LANGUAGES.python;
@@ -24,18 +24,18 @@ export default function CheatsheetsPage() {
       <header className="sticky top-0 z-40 w-full border-b border-[var(--border-color)] bg-[var(--bg-card)]/80 backdrop-blur-md">
         <div className="max-w-7xl mx-auto flex h-14 items-center justify-between px-4 sm:px-8">
           <Link href="/" className="flex items-center gap-2.5">
-            <div className="h-8 w-8 rounded-lg bg-gradient-to-tr from-indigo-600 via-indigo-500 to-emerald-400 flex items-center justify-center text-white font-black text-lg shadow-md">
-              &lt;/&gt;
+            <div className="h-8 w-8 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 flex items-center justify-center text-white font-black text-xs font-mono shadow-md">
+              Ω
             </div>
             <span className="font-extrabold text-lg tracking-tight text-[var(--text-primary)]">
-              OneCompiler Cheatsheets
+              {BRAND.name} Cheatsheets
             </span>
           </Link>
 
           <div className="flex items-center gap-3">
             <Link
               href={`/${lang.id}`}
-              className="px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition-all shadow-md shadow-indigo-600/20 flex items-center gap-1.5"
+              className="px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition-all shadow-md shadow-indigo-600/20 flex items-center gap-1.5"
             >
               <Terminal className="h-3.5 w-3.5" />
               <span>Open {lang.name} IDE</span>
@@ -46,7 +46,7 @@ export default function CheatsheetsPage() {
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-8 py-10 w-full flex-1 flex flex-col md:flex-row gap-8">
-        {/* Left Sidebar: Language Picker */}
+        {/* Left Sidebar */}
         <div className="w-full md:w-64 shrink-0 space-y-2">
           <div className="text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)] px-2 mb-3">
             Select Language
@@ -73,9 +73,9 @@ export default function CheatsheetsPage() {
           </div>
         </div>
 
-        {/* Right Content: Language Cheatsheet Details */}
+        {/* Right Content */}
         <div className="flex-1 space-y-8">
-          <div className="p-6 rounded-3xl border border-[var(--border-color)] bg-[var(--bg-card)] space-y-4">
+          <div className="p-6 rounded-3xl border border-[var(--border-color)] bg-[var(--bg-card)] shadow-lg space-y-4">
             <div className="flex items-center justify-between flex-wrap gap-4">
               <div className="flex items-center gap-3">
                 <span className="text-4xl">{lang.icon}</span>
@@ -84,7 +84,7 @@ export default function CheatsheetsPage() {
                     {lang.name} Syntax Cheat Sheet
                   </h1>
                   <p className="text-xs text-[var(--text-secondary)]">
-                    Version {lang.version} • Quick reference syntax and standard operations
+                    Version {lang.version} • Verified syntax, memory models, and idiomatic patterns
                   </p>
                 </div>
               </div>
@@ -93,7 +93,7 @@ export default function CheatsheetsPage() {
                 href={`/${lang.id}`}
                 className="flex items-center gap-1.5 px-4 py-2 rounded-xl border border-indigo-500/40 bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-400 text-xs font-bold transition-all"
               >
-                <span>Run in {lang.name} IDE</span>
+                <span>Run in {lang.name} Studio</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
