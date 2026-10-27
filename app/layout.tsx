@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
+import Script from 'next/script';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { BRAND } from '@/lib/brand';
-
 import { generateWebsiteSchema } from '@/lib/seo';
 
 const geistSans = Geist({
@@ -15,6 +17,10 @@ const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
 });
+
+const gaId = process.env.NEXT_PUBLIC_GA_ID;
+const gscToken = process.env.NEXT_PUBLIC_GSC_VERIFICATION;
+const cfToken = process.env.NEXT_PUBLIC_CF_ANALYTICS_TOKEN;
 
 export const metadata: Metadata = {
   title: `${BRAND.name} - Instant Cloud & Local Polyglot IDE | 110+ Compilers`,
@@ -58,6 +64,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: BRAND.url,
   },
+  verification: {
+    google: gscToken || undefined,
+  },
 };
 
 export default function RootLayout({
@@ -74,9 +83,39 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
+        {/* Google Analytics 4 (GA4) Live Traffic Tracking */}
+        {gaId && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${gaId}', {
+                  page_path: window.location.pathname,
+                });
+              `}
+            </Script>
+          </>
+        )}
+        {/* Cloudflare Privacy-First Web Analytics */}
+        {cfToken && (
+          <Script
+            src="https://static.cloudflareinsights.com/beacon.min.js"
+            data-cf-beacon={`{"token": "${cfToken}"}`}
+            strategy="afterInteractive"
+          />
+        )}
       </head>
       <body className="min-h-full flex flex-col font-sans selection:bg-indigo-500 selection:text-white">
         <ThemeProvider>{children}</ThemeProvider>
+        {/* Vercel Web Analytics & Speed Insights */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
