@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: omnicompiler
+    runtime: docker
+    dockerfilePath: Dockerfile
+    plan: starter
+    region: oregon
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: NODE_ENV
+        value: production
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: NEXT_PUBLIC_APP_URL
+        value: https://omnicompiler.onrender.com
+    disk:
+      name: omnicompiler-data
+      mountPath: /app/.data
+      sizeGB: 1
+    healthCheckPath: /api/health

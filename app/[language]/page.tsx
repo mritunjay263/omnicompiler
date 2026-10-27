@@ -52,6 +52,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: config.seo.description,
       images: [`/api/og?lang=${config.id}`],
     },
+    alternates: {
+      canonical: `${BRAND.url}/${config.id}`,
+    },
   };
 }
 
@@ -64,7 +67,7 @@ export default async function LanguagePage({ params }: PageProps) {
   }
 
   // Schema.org structured data for SEO ranking
-  const { webAppSchema, faqSchema, breadcrumbSchema } = generateLanguageSchema(config);
+  const { webAppSchema, faqSchema, breadcrumbSchema, codeSnippetsSchemas } = generateLanguageSchema(config);
 
   return (
     <div className="flex flex-col min-h-screen bg-[var(--bg-main)]">
@@ -81,6 +84,13 @@ export default async function LanguagePage({ params }: PageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
+      {codeSnippetsSchemas.map((snippetSchema, idx) => (
+        <script
+          key={idx}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(snippetSchema) }}
+        />
+      ))}
 
       {/* Main Interactive IDE Workspace */}
       <main className="w-full h-screen">

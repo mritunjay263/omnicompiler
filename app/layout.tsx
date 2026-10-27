@@ -55,6 +55,9 @@ export const metadata: Metadata = {
     description: BRAND.description,
     images: ['/api/og'],
   },
+  alternates: {
+    canonical: BRAND.url,
+  },
 };
 
 export default function RootLayout({

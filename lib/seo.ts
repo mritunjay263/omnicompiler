@@ -109,7 +109,22 @@ export function generateLanguageSchema(language: LanguageConfig) {
     ],
   };
 
-  return { webAppSchema, faqSchema, breadcrumbSchema };
+  const codeSnippetsSchemas = (language.templates || []).map((tpl) => ({
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareSourceCode',
+    name: `${tpl.name} Solution in ${language.name}`,
+    description: tpl.description,
+    programmingLanguage: language.name,
+    codeSampleType: 'full snippet',
+    codeRepository: `${baseUrl}/${language.id}`,
+    text: tpl.code,
+    author: {
+      '@type': 'Organization',
+      name: BRAND.name,
+    },
+  }));
+
+  return { webAppSchema, faqSchema, breadcrumbSchema, codeSnippetsSchemas };
 }
 
 export function generateWebsiteSchema() {
