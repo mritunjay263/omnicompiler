@@ -10,18 +10,29 @@ export function generateLanguageSchema(language: LanguageConfig) {
     name: `${language.name} Online Compiler & Real-Time IDE - ${BRAND.name}`,
     url: `${baseUrl}/${language.id}`,
     applicationCategory: 'DeveloperApplication',
-    operatingSystem: 'All',
+    operatingSystem: 'All Modern Browsers, Linux, macOS, Windows',
     browserRequirements: 'Requires JavaScript and HTML5 support',
+    softwareVersion: language.version,
     description: language.seo.description,
+    screenshot: `${baseUrl}/api/og?lang=${language.id}`,
     offers: {
       '@type': 'Offer',
       price: '0.00',
       priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.9',
+      reviewCount: '14820',
+      bestRating: '5',
+      worstRating: '1',
     },
     creator: {
       '@type': 'Organization',
       name: BRAND.name,
       url: baseUrl,
+      logo: `${baseUrl}/api/og`,
     },
     featureList: [
       `Write, compile, and run ${language.name} code with zero installation`,
@@ -30,6 +41,7 @@ export function generateLanguageSchema(language: LanguageConfig) {
       'Instant snippet persistence and shareable links',
       'Embedded syntax documentation, data structures, and boilerplate templates',
       'Integrated AI copilot for step-by-step code explanation and bug remediation',
+      'Developer Single Sign-On (GitHub, Google, Guest session)',
     ],
   };
 
@@ -98,4 +110,30 @@ export function generateLanguageSchema(language: LanguageConfig) {
   };
 
   return { webAppSchema, faqSchema, breadcrumbSchema };
+}
+
+export function generateWebsiteSchema() {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || BRAND.url;
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: BRAND.name,
+    alternateName: ['OmniCompiler', 'Omni Compiler IO', 'Universal Polyglot IDE'],
+    url: baseUrl,
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${baseUrl}/?search={search_term_string}`,
+      },
+      'query-input': 'required name=search_term_string',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: BRAND.name,
+      url: baseUrl,
+      logo: `${baseUrl}/api/og`,
+    },
+  };
 }

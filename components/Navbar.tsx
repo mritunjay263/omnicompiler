@@ -23,6 +23,7 @@ import {
 import { LANGUAGES, LanguageConfig } from '@/lib/languages';
 import { BRAND } from '@/lib/brand';
 import { useTheme } from './ThemeProvider';
+import UserMenu from './UserMenu';
 
 interface NavbarProps {
   currentLanguage: LanguageConfig;
@@ -279,6 +280,9 @@ export function Navbar({
           >
             {theme === 'dark' ? <Sun className="h-3.5 w-3.5" /> : <Moon className="h-3.5 w-3.5" />}
           </button>
+
+          {/* Developer SSO & User Menu */}
+          <UserMenu />
 
           {/* Core RUN Button */}
           <button

@@ -37,11 +37,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: config.seo.description,
       type: 'website',
       url: `${BRAND.url}/${config.id}`,
+      images: [
+        {
+          url: `/api/og?lang=${config.id}`,
+          width: 1200,
+          height: 630,
+          alt: `${config.name} Compiler - ${BRAND.name}`,
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title: `${config.seo.title} | ${BRAND.name}`,
       description: config.seo.description,
+      images: [`/api/og?lang=${config.id}`],
     },
   };
 }

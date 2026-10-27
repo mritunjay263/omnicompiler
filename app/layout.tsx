@@ -4,6 +4,8 @@ import './globals.css';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { BRAND } from '@/lib/brand';
 
+import { generateWebsiteSchema } from '@/lib/seo';
+
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
@@ -38,11 +40,20 @@ export const metadata: Metadata = {
     siteName: BRAND.name,
     type: 'website',
     url: BRAND.url,
+    images: [
+      {
+        url: '/api/og',
+        width: 1200,
+        height: 630,
+        alt: `${BRAND.name} Universal Polyglot Engine`,
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: `${BRAND.name} - Code, Compile & Run in Real Time`,
     description: BRAND.description,
+    images: ['/api/og'],
   },
 };
 
@@ -51,8 +62,16 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const websiteSchema = generateWebsiteSchema();
+
   return (
     <html lang="en" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+        />
+      </head>
       <body className="min-h-full flex flex-col font-sans selection:bg-indigo-500 selection:text-white">
         <ThemeProvider>{children}</ThemeProvider>
       </body>

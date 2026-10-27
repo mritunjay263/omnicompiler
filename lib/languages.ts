@@ -75,6 +75,26 @@ print(f"Sum of evens: {sum(evens)}")
         code: `import sys\n\nprint("Reading input from STDIN:")\nname = sys.stdin.readline().strip()\nage = sys.stdin.readline().strip()\nprint(f"Hello {name}, you entered age {age}!")\n`,
       },
       {
+        name: 'Two Sum Problem (LeetCode #1)',
+        description: 'Optimal hash map solution with O(n) time complexity',
+        code: `def two_sum(nums, target):
+    seen = {}
+    for i, num in enumerate(nums):
+        complement = target - num
+        if complement in seen:
+            return [seen[complement], i]
+        seen[num] = i
+    return []
+
+numbers = [2, 7, 11, 15]
+target = 9
+indices = two_sum(numbers, target)
+print(f"Nums: {numbers}, Target: {target}")
+print(f"Indices: {indices}")
+print(f"Values: {numbers[indices[0]]} + {numbers[indices[1]]} = {target}")
+`,
+      },
+      {
         name: 'Binary Search Algorithm',
         description: 'Optimal search in sorted array O(log n)',
         code: `def binary_search(arr, target):\n    low, high = 0, len(arr) - 1\n    while low <= high:\n        mid = (low + high) // 2\n        if arr[mid] == target:\n            return mid\n        elif arr[mid] < target:\n            low = mid + 1\n        else:\n            high = mid - 1\n    return -1\n\nnumbers = [2, 5, 8, 12, 16, 23, 38, 56, 72, 91]\ntarget = 23\nresult = binary_search(numbers, target)\nprint(f"Array: {numbers}")\nprint(f"Element {target} found at index: {result}")\n`,
@@ -169,6 +189,29 @@ simulateAsyncWork().then(console.log);
         code: `const products = [\n  { id: 1, name: "Laptop", price: 999, inStock: true },\n  { id: 2, name: "Mouse", price: 49, inStock: true },\n  { id: 3, name: "Monitor", price: 299, inStock: false },\n  { id: 4, name: "Keyboard", price: 89, inStock: true }\n];\n\nconst available = products.filter(p => p.inStock);\nconst totalValue = available.reduce((sum, p) => sum + p.price, 0);\nconsole.log("Available Products:", available.map(p => p.name));\nconsole.log(\`Total Stock Value: $\${totalValue}\`);\n`,
       },
       {
+        name: 'Two Sum Problem (LeetCode #1)',
+        description: 'Optimal Map-based hash table lookup O(n)',
+        code: `function twoSum(nums, target) {
+  const map = new Map();
+  for (let i = 0; i < nums.length; i++) {
+    const complement = target - nums[i];
+    if (map.has(complement)) {
+      return [map.get(complement), i];
+    }
+    map.set(nums[i], i);
+  }
+  return [];
+}
+
+const nums = [2, 7, 11, 15];
+const target = 9;
+const result = twoSum(nums, target);
+console.log("Input Array:", nums, "Target:", target);
+console.log("Solution Indices:", result);
+console.log(\`Values: \${nums[result[0]]} + \${nums[result[1]]} = \${target}\`);
+`,
+      },
+      {
         name: 'Debounce & Throttle Implementation',
         description: 'Classic frontend interview problem',
         code: `function debounce(func, delay) {\n  let timeoutId;\n  return function (...args) {\n    clearTimeout(timeoutId);\n    timeoutId = setTimeout(() => func.apply(this, args), delay);\n  };\n}\n\nconst logMsg = debounce((text) => console.log("Debounced:", text), 50);\nlogMsg("Event 1");\nlogMsg("Event 2");\nlogMsg("Event 3 - Only this fires!");\n`,
@@ -241,6 +284,39 @@ int main() {
         description: 'Read two numbers and print their sum',
         stdin: '45 55',
         code: `#include <iostream>\n\nint main() {\n    int a, b;\n    if (std::cin >> a >> b) {\n        std::cout << a << " + " << b << " = " << (a + b) << std::endl;\n    } else {\n        std::cout << "Please provide two integers in STDIN!" << std::endl;\n    }\n    return 0;\n}\n`,
+      },
+      {
+        name: 'Two Sum Problem (LeetCode #1)',
+        description: 'Optimal hash map solution using std::unordered_map O(n)',
+        code: `#include <iostream>
+#include <vector>
+#include <unordered_map>
+
+std::vector<int> twoSum(const std::vector<int>& nums, int target) {
+    std::unordered_map<int, int> numMap;
+    for (int i = 0; i < nums.size(); ++i) {
+        int complement = target - nums[i];
+        if (numMap.find(complement) != numMap.end()) {
+            return {numMap[complement], i};
+        }
+        numMap[nums[i]] = i;
+    }
+    return {};
+}
+
+int main() {
+    std::vector<int> nums = {2, 7, 11, 15};
+    int target = 9;
+    std::vector<int> result = twoSum(nums, target);
+    
+    std::cout << "Target: " << target << std::endl;
+    if (!result.empty()) {
+        std::cout << "Indices: [" << result[0] << ", " << result[1] << "]" << std::endl;
+        std::cout << "Values: " << nums[result[0]] << " + " << nums[result[1]] << " = " << target << std::endl;
+    }
+    return 0;
+}
+`,
       },
       {
         name: 'Binary Search Tree (BST)',
@@ -927,3 +1003,8 @@ export const POPULAR_LANGUAGE_IDS = [
   'ruby',
   'bash',
 ];
+
+export function getLanguageConfig(id: string): LanguageConfig | null {
+  if (!id) return null;
+  return LANGUAGES[id.toLowerCase()] || null;
+}
