@@ -23,29 +23,42 @@ const gscToken = process.env.NEXT_PUBLIC_GSC_VERIFICATION;
 const cfToken = process.env.NEXT_PUBLIC_CF_ANALYTICS_TOKEN;
 
 export const metadata: Metadata = {
-  title: `${BRAND.name} - Instant Cloud & Local Polyglot IDE | 110+ Compilers`,
-  description: `${BRAND.description} Zero setup, sub-second latency, multi-file projects, and integrated AI copilot.`,
+  title: {
+    default: `${BRAND.name} — Free Online Compiler & Cloud IDE (15+ Languages)`,
+    template: `%s | ${BRAND.name}`,
+  },
+  description: `${BRAND.description} Write, compile, and execute Python, Java, C++, C, Rust, Go, and 15+ languages instantly with interactive STDIN and zero setup.`,
   keywords: [
     'online compiler',
+    'free online compiler',
+    'online code runner',
+    'cloud ide',
     'polyglot ide',
     'python online compiler',
-    'c++ online compiler',
-    'javascript online runner',
     'java online compiler',
+    'c++ online compiler',
+    'c online compiler',
     'c# online ide',
     'rust online compiler',
     'go online compiler',
+    'javascript online runner',
     'sql online runner',
     'free online ide',
+    'omnicompiler',
+    'omni compiler',
+    'omnicompilerlabs',
   ],
-  authors: [{ name: BRAND.name }],
+  authors: [{ name: 'Mritunjay Pandey', url: 'https://github.com/mritunjay263' }],
+  creator: 'Mritunjay Pandey',
+  publisher: BRAND.name,
   metadataBase: new URL(BRAND.url),
   openGraph: {
-    title: `${BRAND.name} - Instant In-Browser Polyglot IDE`,
+    title: `${BRAND.name} — Free Online Compiler & Cloud IDE`,
     description: BRAND.description,
     siteName: BRAND.name,
     type: 'website',
     url: BRAND.url,
+    locale: 'en_US',
     images: [
       {
         url: '/api/og',
@@ -57,12 +70,23 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${BRAND.name} - Code, Compile & Run in Real Time`,
+    title: `${BRAND.name} — Code, Compile & Run in Real Time`,
     description: BRAND.description,
     images: ['/api/og'],
   },
   alternates: {
     canonical: BRAND.url,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
   verification: {
     google: gscToken || undefined,
@@ -113,7 +137,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col font-sans selection:bg-indigo-500 selection:text-white">
         <ThemeProvider>{children}</ThemeProvider>
-        {/* Vercel Native Web Analytics & Speed Insights */}
+        {/* Vercel Web Analytics & Speed Insights for native Vercel dashboard metrics */}
         <Analytics />
         <SpeedInsights />
       </body>

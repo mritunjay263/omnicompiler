@@ -2,7 +2,7 @@ import { LanguageConfig } from './languages';
 import { BRAND } from './brand';
 
 export function generateLanguageSchema(language: LanguageConfig) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || BRAND.url;
+  const baseUrl = BRAND.url;
 
   const webAppSchema = {
     '@context': 'https://schema.org',
@@ -10,7 +10,7 @@ export function generateLanguageSchema(language: LanguageConfig) {
     name: `${language.name} Online Compiler & Real-Time IDE - ${BRAND.name}`,
     url: `${baseUrl}/${language.id}`,
     applicationCategory: 'DeveloperApplication',
-    operatingSystem: 'All Modern Browsers, Linux, macOS, Windows',
+    operatingSystem: 'All Modern Browsers, Linux, macOS, Windows, Android, iOS',
     browserRequirements: 'Requires JavaScript and HTML5 support',
     softwareVersion: language.version,
     description: language.seo.description,
@@ -128,13 +128,13 @@ export function generateLanguageSchema(language: LanguageConfig) {
 }
 
 export function generateWebsiteSchema() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || BRAND.url;
+  const baseUrl = BRAND.url;
 
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: BRAND.name,
-    alternateName: ['OmniCompiler', 'Omni Compiler IO', 'Universal Polyglot IDE'],
+    alternateName: ['OmniCompiler', 'OmniCompiler Labs', 'Omni Compiler Online', 'Universal Polyglot IDE'],
     url: baseUrl,
     potentialAction: {
       '@type': 'SearchAction',
@@ -149,6 +149,9 @@ export function generateWebsiteSchema() {
       name: BRAND.name,
       url: baseUrl,
       logo: `${baseUrl}/api/og`,
+      sameAs: [
+        'https://github.com/mritunjay263/omnicompiler',
+      ],
     },
   };
 }
