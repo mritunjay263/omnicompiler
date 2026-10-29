@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { runLocally, RunOptions } from '@/lib/runner/localRunner';
 import { runInCloud } from '@/lib/runner/cloudRunner';
 
-export const maxDuration = 15; // Allow Vercel functions up to 15s for compilation
+export const maxDuration = 15; // Allow Vercel serverless up to 15s for compilation
 
 export async function POST(request: NextRequest) {
   try {
@@ -24,26 +24,41 @@ export async function POST(request: NextRequest) {
     };
 
     const lang = runOptions.language;
-    const isVercel = process.env.VERCEL === '1';
 
-    // On Vercel, serverless containers do not have C++, Java, Rust, Python, Go installed.
-    // For compiled/interpreted languages on Vercel, run directly in Cloud Runner for instant execution!
-    const needsCloudOnVercel = isVercel && !['javascript', 'js', 'html', 'web'].includes(lang);
+    // Detect cloud or serverless environment (Vercel, AWS Lambda, Render, Fly, production)
+    const isServerlessOrCloud = Boolean(
+      process.env.VERCEL ||
+      process.env.VERCEL_ENV ||
+      process.env.VERCEL_URL ||
+      process.env.NEXT_PUBLIC_VERCEL_ENV ||
+      process.env.AWS_LAMBDA_FUNCTION_NAME ||
+      process.env.RENDER ||
+      process.env.FLY_APP_NAME ||
+      process.env.NODE_ENV === 'production'
+    );
 
-    if (needsCloudOnVercel) {
+    // Node.js runtime handles JS and HTML web sandbox locally without native toolchains.
+    // In serverless / cloud hosts (Vercel, AWS, etc.), compiled languages (Java, C++, Rust, Go, Python, C#, etc.)
+    // do not have compiler binaries (javac, g++, rustc) installed in the microVM.
+    // Route them directly to Cloud Runner for instant execution without binary missing errors!
+    const isNodeNative = ['javascript', 'js', 'html', 'web'].includes(lang);
+
+    if (isServerlessOrCloud && !isNodeNative) {
       const cloudResult = await runInCloud(runOptions);
       return NextResponse.json(cloudResult);
     }
 
-    // Try local runner
+    // In local development, try local native runner first
     const localResult = await runLocally(runOptions);
 
-    // If local runner failed due to missing binary (ENOENT), seamlessly fall back to Cloud Runner!
+    // If local compiler is missing (ENOENT, spawn error, command not found), fall back to Cloud Runner!
     const isMissingCompiler =
       localResult.status === 'error' &&
       (localResult.stderr.includes('ENOENT') ||
         localResult.stderr.includes('not found') ||
-        localResult.stderr.includes('spawn'));
+        localResult.stderr.includes('spawn') ||
+        localResult.stderr.includes('cannot find') ||
+        localResult.stderr.includes('command not found'));
 
     if (isMissingCompiler) {
       const cloudFallback = await runInCloud(runOptions);
