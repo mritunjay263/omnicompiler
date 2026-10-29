@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { User as UserIcon, LogOut, Code2, ChevronDown, Sparkles, Shield } from 'lucide-react';
+import Link from 'next/link';
+import { User as UserIcon, LogOut, Code2, ChevronDown, Sparkles, Shield, BarChart3 } from 'lucide-react';
 import { GitHubIcon, GoogleIcon } from './Icons';
 import AuthModal from './AuthModal';
 import MySnippetsModal from './MySnippetsModal';
@@ -84,13 +85,23 @@ export default function UserMenu() {
     <>
       <div className="relative" ref={dropdownRef}>
         {!user ? (
-          <button
-            onClick={() => setIsAuthOpen(true)}
-            className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-cyan-500/20 to-blue-500/20 hover:from-cyan-500/30 hover:to-blue-500/30 border border-cyan-500/40 text-cyan-300 hover:text-white text-xs font-semibold tracking-wide transition-all shadow-sm hover:shadow-cyan-500/20"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-            <span>Sign In</span>
-          </button>
+          <div className="flex items-center gap-2">
+            <Link
+              href="/analytics"
+              title="View Real-Time Analytics"
+              className="p-1.5 rounded-lg border border-white/10 bg-[var(--bg-panel)] text-[var(--text-secondary)] hover:text-white hover:border-cyan-500/50 transition-all hidden sm:flex items-center gap-1 text-xs"
+            >
+              <BarChart3 className="w-3.5 h-3.5 text-cyan-400" />
+              <span className="hidden md:inline">Analytics</span>
+            </Link>
+            <button
+              onClick={() => setIsAuthOpen(true)}
+              className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-cyan-500/20 to-blue-500/20 hover:from-cyan-500/30 hover:to-blue-500/30 border border-cyan-500/40 text-cyan-300 hover:text-white text-xs font-semibold tracking-wide transition-all shadow-sm hover:shadow-cyan-500/20"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+              <span>Sign In</span>
+            </button>
+          </div>
         ) : (
           <button
             onClick={() => setIsDropdownOpen((prev) => !prev)}
@@ -106,7 +117,6 @@ export default function UserMenu() {
                   alt={user.name}
                   className="w-6 h-6 rounded-lg object-cover ring-1 ring-cyan-500/50"
                   onError={(e) => {
-                    // Fallback to initial
                     (e.target as HTMLElement).style.display = 'none';
                   }}
                 />
@@ -144,6 +154,15 @@ export default function UserMenu() {
                 <Code2 className="w-4 h-4 text-cyan-400" />
                 <span>My Cloud Snippets</span>
               </button>
+
+              <Link
+                href="/analytics"
+                onClick={() => setIsDropdownOpen(false)}
+                className="w-full flex items-center gap-3 px-4 py-2.5 text-xs text-slate-300 hover:text-white hover:bg-white/5 transition-colors text-left"
+              >
+                <BarChart3 className="w-4 h-4 text-emerald-400" />
+                <span>Live Site Analytics</span>
+              </Link>
             </div>
 
             {/* Logout */}
