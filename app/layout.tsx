@@ -5,7 +5,6 @@ import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 import { ThemeProvider } from '@/components/ThemeProvider';
-import AnalyticsTracker from '@/components/AnalyticsTracker';
 import { BRAND } from '@/lib/brand';
 import { generateWebsiteSchema } from '@/lib/seo';
 
@@ -114,10 +113,8 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col font-sans selection:bg-indigo-500 selection:text-white">
         <ThemeProvider>{children}</ThemeProvider>
-        {/* Internal Live Analytics Tracker (Ad-Blocker Resistant) */}
-        <AnalyticsTracker />
-        {/* Vercel Web Analytics & Speed Insights */}
-        <Analytics debug={process.env.NODE_ENV === 'development'} />
+        {/* Vercel Native Web Analytics & Speed Insights */}
+        <Analytics />
         <SpeedInsights />
       </body>
     </html>
