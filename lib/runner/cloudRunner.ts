@@ -167,8 +167,9 @@ export async function runInCloud(options: CloudRunOptions): Promise<CloudRunResu
       if (res.ok) {
         const data = await res.json();
         const stdout = data.stdout || '';
-        const stderr = [data.compile_output, data.stderr, data.message].filter(Boolean).join('\n');
+        const rawStderr = [data.compile_output, data.stderr, data.message].filter(Boolean).join("\n");
         const exitCode = data.status?.id === 3 ? 0 : 1;
+        const stderr = sanitizeStderr(rawStderr, exitCode);
 
         if (stdout || stderr || data.status?.id) {
           return {
