@@ -1,0 +1,22 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="omni-bg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stopColor="#0B0F19" />
+      <stop offset="100%" stopColor="#030712" />
+    </linearGradient>
+    <linearGradient id="omni-border" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stopColor="#38BDF8" />
+      <stop offset="50%" stopColor="#6366F1" />
+      <stop offset="100%" stopColor="#10B981" />
+    </linearGradient>
+    <linearGradient id="omni-code" x1="8" y1="12" x2="56" y2="52" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stopColor="#38BDF8" />
+      <stop offset="100%" stopColor="#10B981" />
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#omni-bg)" stroke="url(#omni-border)" stroke-width="2.5" />
+  <path d="M22 20L10 32L22 44" stroke="url(#omni-code)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M42 20L54 32L42 44" stroke="url(#omni-code)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M36 16L28 48" stroke="#A855F7" stroke-width="4.5" stroke-linecap="round"/>
+  <circle cx="32" cy="32" r="3.5" fill="#38BDF8"/>
+</svg>

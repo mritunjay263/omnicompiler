@@ -1,6 +1,5 @@
 import { ImageResponse } from 'next/og';
 
-// Route segment config
 export const size = {
   width: 32,
   height: 32,
@@ -12,20 +11,22 @@ export default function Icon() {
     (
       <div
         style={{
-          fontSize: 20,
-          background: 'linear-gradient(135deg, #6366f1 0%, #06b6d4 100%)',
           width: '100%',
           height: '100%',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: 'white',
+          background: '#090D16',
           borderRadius: 8,
+          border: '1.5px solid #38BDF8',
+          fontSize: 16,
           fontWeight: 900,
+          color: '#38BDF8',
           fontFamily: 'monospace',
+          letterSpacing: '-1px',
         }}
       >
-        Ω
+        {'</>'}
       </div>
     ),
     {

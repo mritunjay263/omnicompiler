@@ -1,3 +1,4 @@
+import { EXTRA_LANGUAGES } from './extraLanguages';
 export interface LanguageTemplate {
   name: string;
   description: string;
@@ -985,6 +986,7 @@ team.forEach(member => console.log(printUserDetails(member)));
       },
     ],
   },
+  ...EXTRA_LANGUAGES,
 };
 
 export const POPULAR_LANGUAGE_IDS = [
@@ -1002,6 +1004,22 @@ export const POPULAR_LANGUAGE_IDS = [
   'php',
   'ruby',
   'bash',
+  'kotlin',
+  'swift',
+  'react',
+  'dart',
+  'vue',
+  'scala',
+  'r',
+  'lua',
+  'perl',
+  'haskell',
+  'assembly',
+  'fortran',
+  'cobol',
+  'pascal',
+  'erlang',
+  'markdown',
 ];
 
 export function getLanguageConfig(id: string): LanguageConfig | null {

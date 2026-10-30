@@ -22,18 +22,19 @@ import {
 import { LANGUAGES } from '@/lib/languages';
 import { BRAND } from '@/lib/brand';
 import { SearchModal } from '@/components/SearchModal';
+import Logo from '@/components/Logo';
 import { useTheme } from '@/components/ThemeProvider';
 
 export default function HomePage() {
   const router = useRouter();
   const { theme, toggleTheme } = useTheme();
-  const [activeCategory, setActiveCategory] = useState<'popular' | 'programming' | 'web' | 'database'>('popular');
+  const [activeCategory, setActiveCategory] = useState<'all' | 'popular' | 'programming' | 'web' | 'database' | 'scripting'>('popular');
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   const allLanguages = Object.values(LANGUAGES);
   const displayedLanguages = allLanguages.filter((l) => {
-    const matchesCat = activeCategory === 'popular' ? true : l.category === activeCategory;
+    const matchesCat = activeCategory === 'all' ? true : (activeCategory === 'popular' ? (l.category === 'popular' || ['python', 'javascript', 'java', 'cpp', 'html', 'sql', 'typescript', 'rust', 'kotlin', 'react', 'go', 'swift'].includes(l.id)) : l.category === activeCategory);
     const matchesQuery =
       l.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       l.id.includes(searchQuery.toLowerCase());
@@ -46,16 +47,7 @@ export default function HomePage() {
       <header className="sticky top-0 z-40 w-full border-b border-[var(--border-color)] bg-[var(--bg-card)]/80 backdrop-blur-md">
         <div className="max-w-7xl mx-auto flex h-14 items-center justify-between px-4 sm:px-8">
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="relative h-8 w-8 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 p-[1px] shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform">
-              <div className="flex h-full w-full items-center justify-center rounded-[11px] bg-slate-950 font-black text-xs text-white">
-                <span className="bg-gradient-to-r from-indigo-400 to-cyan-300 bg-clip-text text-transparent font-mono">
-                  Ω
-                </span>
-              </div>
-            </div>
-            <span className="font-black text-lg tracking-tight text-[var(--text-primary)]">
-              {BRAND.name}
-            </span>
+            <Logo size="md" />
           </Link>
 
           <nav className="hidden md:flex items-center gap-6 text-sm font-semibold text-[var(--text-secondary)]">
@@ -136,7 +128,7 @@ export default function HomePage() {
         {/* Category Tabs */}
         <div className="mt-10 flex justify-center">
           <div className="inline-flex p-1 rounded-2xl bg-[var(--bg-panel)] border border-[var(--border-color)] gap-1">
-            {(['popular', 'programming', 'web', 'database'] as const).map((cat) => (
+            {(['all', 'popular', 'programming', 'web', 'database', 'scripting'] as const).map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
@@ -164,9 +156,16 @@ export default function HomePage() {
             >
               <div className="flex items-center justify-between">
                 <span className="text-2xl">{lang.icon}</span>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-[var(--bg-panel)] text-[var(--text-secondary)] border border-[var(--border-color)]">
-                  {lang.extension}
-                </span>
+                <div className="flex items-center gap-1.5">
+                  {lang.badge && (
+                    <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                      {lang.badge}
+                    </span>
+                  )}
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-[var(--bg-panel)] text-[var(--text-secondary)] border border-[var(--border-color)]">
+                    {lang.extension}
+                  </span>
+                </div>
               </div>
 
               <div className="mt-4">

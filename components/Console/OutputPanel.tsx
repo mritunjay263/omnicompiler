@@ -44,7 +44,7 @@ export function OutputPanel({
   language,
   activeHtmlCode = '',
 }: OutputPanelProps) {
-  const isWeb = language.id === 'html';
+  const isWeb = ['html', 'react', 'vue', 'markdown'].includes(language.id);
   const isSql = language.id === 'sql';
 
   const [activeTab, setActiveTab] = useState<'output' | 'stdin' | 'preview' | 'table' | 'cheatsheet'>(
@@ -257,7 +257,7 @@ export function OutputPanel({
         )}
 
         {/* WEB PREVIEW TAB */}
-        {activeTab === 'preview' && <WebPreview htmlCode={activeHtmlCode} />}
+        {activeTab === 'preview' && <WebPreview htmlCode={activeHtmlCode} language={language.id} />}
 
         {/* SQL TABLE VIEW TAB */}
         {activeTab === 'table' && <TableViewer rawOutput={output.stdout} />}

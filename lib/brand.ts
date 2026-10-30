@@ -10,12 +10,12 @@ export const BRAND = {
   legalName: 'OmniCompiler Cloud IDE',
   tagline: 'Universal In-Browser IDE & High-Performance Polyglot Runner',
   description:
-    'Free online compiler and cloud IDE. Write, compile, and execute Python, Java, C++, C, Rust, Go, and 15+ languages instantly in your browser with interactive STDIN, dark mode, and zero setup.',
+    'Free online compiler, code runner, and cloud IDE. Write, compile, and execute Python, Java, C++, C, Rust, Go, Kotlin, Swift, React, and 30+ languages and frameworks instantly in your browser with interactive STDIN, dark mode, and zero setup.',
   domain: 'omnicompilerlabs.vercel.app',
   url: getProductionBaseUrl(),
   version: '2.5.0 Production',
   stats: {
-    languages: '15+ Compilers',
+    languages: '30+ Compilers & Frameworks',
     activeDevelopers: '100K+',
     dailyExecutions: '500K+',
     executionUptime: '99.99%',

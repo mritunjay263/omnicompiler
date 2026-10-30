@@ -40,6 +40,31 @@ const JUDGE0_LANG_IDS: Record<string, number> = {
   sh: 46,
   sql: 82,
   sqlite: 82,
+  // New Languages
+  kotlin: 78,
+  kt: 78,
+  swift: 83,
+  dart: 48,
+  scala: 81,
+  r: 80,
+  lua: 64,
+  perl: 85,
+  pl: 85,
+  haskell: 61,
+  hs: 61,
+  elixir: 57,
+  exs: 57,
+  clojure: 86,
+  clj: 86,
+  groovy: 88,
+  cobol: 77,
+  fortran: 59,
+  f90: 59,
+  assembly: 45,
+  asm: 45,
+  nasm: 45,
+  pascal: 67,
+  erlang: 58,
 };
 
 const WANDBOX_COMPILERS: Record<string, string> = {
@@ -65,6 +90,18 @@ const WANDBOX_COMPILERS: Record<string, string> = {
   cs: 'dotnetcore-8.0.402',
   bash: 'bash',
   sh: 'bash',
+  // New Languages
+  kotlin: 'kotlinc-1.9.23',
+  swift: 'swift-5.9.2',
+  scala: 'scala-3.3.1',
+  r: 'r-4.3.2',
+  lua: 'lua-5.4.6',
+  perl: 'perl-5.38.2',
+  haskell: 'ghc-9.8.1',
+  elixir: 'elixir-1.16.2',
+  groovy: 'groovy-4.0.18',
+  erlang: 'erlang-26.2.2',
+  zig: 'zig-0.12.0',
 };
 
 export async function runInCloud(options: CloudRunOptions): Promise<CloudRunResult> {
@@ -77,9 +114,7 @@ export async function runInCloud(options: CloudRunOptions): Promise<CloudRunResu
   // 1. Prepare Java code (normalize class name so it runs seamlessly on cloud runners)
   let effectiveCode = mainCode;
   if (langKey === 'java') {
-    // If public class has any name other than Main, normalize to Main
     effectiveCode = mainCode.replace(/public\s+class\s+([A-Za-z0-9_]+)/g, 'public class Main');
-    // If no public class Main exists, ensure class containing main is public class Main
     if (!effectiveCode.includes('public class Main') && !effectiveCode.includes('class Main')) {
       effectiveCode = effectiveCode.replace(/class\s+([A-Za-z0-9_]+)/, 'public class Main');
     }
@@ -90,7 +125,7 @@ export async function runInCloud(options: CloudRunOptions): Promise<CloudRunResu
   if (judge0LangId) {
     try {
       const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), Math.min(timeoutMs, 5000));
+      const timer = setTimeout(() => controller.abort(), Math.min(timeoutMs, 6000));
 
       const res = await fetch('https://ce.judge0.com/submissions?base64_encoded=false&wait=true', {
         method: 'POST',
@@ -133,9 +168,8 @@ export async function runInCloud(options: CloudRunOptions): Promise<CloudRunResu
   if (wandboxCompiler) {
     try {
       const controller = new AbortController();
-      const timer = setTimeout(() => controller.abort(), Math.min(timeoutMs, 5000));
+      const timer = setTimeout(() => controller.abort(), Math.min(timeoutMs, 6000));
 
-      // For Wandbox Java, class Main without public works best
       const wandboxCode = langKey === 'java' ? effectiveCode.replace(/public\s+class\s+Main/g, 'class Main') : effectiveCode;
 
       const payload: Record<string, any> = {

@@ -11,21 +11,42 @@ export default function AppleIcon() {
     (
       <div
         style={{
-          fontSize: 108,
-          background: 'linear-gradient(135deg, #4f46e5 0%, #0891b2 100%)',
           width: '100%',
           height: '100%',
           display: 'flex',
+          flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          color: 'white',
+          background: '#090D16',
           borderRadius: 40,
-          fontWeight: 900,
-          fontFamily: 'monospace',
-          boxShadow: '0 20px 40px rgba(0,0,0,0.5)',
+          border: '4px solid #38BDF8',
+          boxShadow: '0 20px 40px rgba(0,0,0,0.6)',
         }}
       >
-        Ω
+        <div
+          style={{
+            fontSize: 72,
+            fontWeight: 900,
+            color: '#38BDF8',
+            fontFamily: 'monospace',
+            letterSpacing: '-2px',
+          }}
+        >
+          {'</>'}
+        </div>
+        <div
+          style={{
+            fontSize: 18,
+            fontWeight: 800,
+            color: '#A5B4FC',
+            fontFamily: 'sans-serif',
+            textTransform: 'uppercase',
+            letterSpacing: '3px',
+            marginTop: 4,
+          }}
+        >
+          Omni
+        </div>
       </div>
     ),
     {

@@ -19,11 +19,14 @@ import {
   HelpCircle,
   X,
   Keyboard,
+  Columns,
+  Rows,
 } from 'lucide-react';
 import { LANGUAGES, LanguageConfig } from '@/lib/languages';
 import { BRAND } from '@/lib/brand';
 import { useTheme } from './ThemeProvider';
 import UserMenu from './UserMenu';
+import Logo from './Logo';
 
 interface NavbarProps {
   currentLanguage: LanguageConfig;
@@ -37,6 +40,8 @@ interface NavbarProps {
   activeFileName?: string;
   activeFileContent?: string;
   onShare?: () => void;
+  layoutOrientation?: 'horizontal' | 'vertical';
+  onToggleLayout?: () => void;
 }
 
 export function Navbar({
@@ -51,6 +56,8 @@ export function Navbar({
   activeFileName,
   activeFileContent,
   onShare,
+  layoutOrientation = 'horizontal',
+  onToggleLayout,
 }: NavbarProps) {
   const router = useRouter();
   const { theme, toggleTheme } = useTheme();
@@ -58,6 +65,7 @@ export function Navbar({
   const [templateDropdownOpen, setTemplateDropdownOpen] = useState(false);
   const [shortcutsModalOpen, setShortcutsModalOpen] = useState(false);
   const [copiedShare, setCopiedShare] = useState(false);
+  const [langSearch, setLangSearch] = useState('');
 
   const handleDownload = () => {
     if (!activeFileContent) return;
@@ -84,23 +92,7 @@ export function Navbar({
         {/* Left: Brand & Language Picker */}
         <div className="flex items-center gap-3">
           <Link href="/" className="flex items-center gap-2 group">
-            {/* Custom Brand Icon: Glowing Geometric Polyglot Cube */}
-            <div className="relative h-8 w-8 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 p-[1px] shadow-lg shadow-indigo-500/20 group-hover:scale-105 transition-transform">
-              <div className="flex h-full w-full items-center justify-center rounded-[11px] bg-slate-950 font-black text-xs text-white">
-                <span className="bg-gradient-to-r from-indigo-400 to-cyan-300 bg-clip-text text-transparent font-mono">
-                  Ω
-                </span>
-              </div>
-            </div>
-
-            <div className="hidden sm:flex flex-col">
-              <span className="font-black tracking-tight text-lg text-[var(--text-primary)] flex items-center gap-1.5">
-                {BRAND.name}
-                <span className="text-[10px] font-bold px-1.5 py-0.2 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/30">
-                  PROD
-                </span>
-              </span>
-            </div>
+            <Logo size="md" />
           </Link>
 
           <div className="h-5 w-px bg-[var(--border-color)] mx-1 hidden sm:block" />
@@ -122,30 +114,52 @@ export function Navbar({
                   className="fixed inset-0 z-40"
                   onClick={() => setLangDropdownOpen(false)}
                 />
-                <div className="absolute left-0 mt-2 w-64 rounded-2xl border border-[var(--border-color)] bg-[var(--bg-card)] p-2 shadow-2xl z-50 max-h-96 overflow-y-auto">
-                  <div className="px-2 py-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--text-secondary)]">
-                    Supported Runtimes
+                <div className="absolute left-0 mt-2 w-72 rounded-2xl border border-[var(--border-color)] bg-[var(--bg-card)] p-2.5 shadow-2xl z-50 max-h-[420px] flex flex-col">
+                  <div className="p-1 mb-1">
+                    <input
+                      type="text"
+                      placeholder="Search 30+ compilers..."
+                      value={langSearch}
+                      onChange={(e) => setLangSearch(e.target.value)}
+                      autoFocus
+                      className="w-full px-3 py-1.5 rounded-lg text-xs bg-[var(--bg-panel)] border border-[var(--border-color)] focus:outline-none focus:border-indigo-500 text-[var(--text-primary)] placeholder:text-[var(--text-secondary)]"
+                    />
                   </div>
-                  {Object.values(LANGUAGES).map((lang) => (
-                    <button
-                      key={lang.id}
-                      onClick={() => {
-                        setLangDropdownOpen(false);
-                        router.push(`/${lang.id}`);
-                      }}
-                      className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-sm text-left transition-colors ${
-                        lang.id === currentLanguage.id
-                          ? 'bg-indigo-600/20 text-indigo-400 font-semibold'
-                          : 'hover:bg-[var(--bg-panel)] text-[var(--text-primary)]'
-                      }`}
-                    >
-                      <span className="flex items-center gap-2">
-                        <span>{lang.icon}</span>
-                        <span>{lang.name}</span>
-                      </span>
-                      <span className="text-xs text-[var(--text-secondary)]">{lang.extension}</span>
-                    </button>
-                  ))}
+                  <div className="overflow-y-auto flex-1 space-y-0.5 max-h-80">
+                    {Object.values(LANGUAGES)
+                      .filter(
+                        (l) =>
+                          l.name.toLowerCase().includes(langSearch.toLowerCase()) ||
+                          l.id.toLowerCase().includes(langSearch.toLowerCase()) ||
+                          l.category.toLowerCase().includes(langSearch.toLowerCase())
+                      )
+                      .map((lang) => (
+                        <button
+                          key={lang.id}
+                          onClick={() => {
+                            setLangDropdownOpen(false);
+                            setLangSearch('');
+                            router.push(`/${lang.id}`);
+                          }}
+                          className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs text-left transition-colors ${
+                            lang.id === currentLanguage.id
+                              ? 'bg-indigo-600/20 text-indigo-400 font-semibold'
+                              : 'hover:bg-[var(--bg-panel)] text-[var(--text-primary)]'
+                          }`}
+                        >
+                          <span className="flex items-center gap-2">
+                            <span>{lang.icon}</span>
+                            <span>{lang.name}</span>
+                            {lang.badge && (
+                              <span className="text-[9px] px-1 py-0.2 rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                                {lang.badge}
+                              </span>
+                            )}
+                          </span>
+                          <span className="text-[10px] text-[var(--text-secondary)] font-mono">{lang.extension}</span>
+                        </button>
+                      ))}
+                  </div>
                 </div>
               </>
             )}
@@ -271,6 +285,17 @@ export function Navbar({
           >
             <HelpCircle className="h-3.5 w-3.5" />
           </button>
+
+          {/* Layout Split Toggle */}
+          {onToggleLayout && (
+            <button
+              onClick={onToggleLayout}
+              title={layoutOrientation === 'horizontal' ? 'Switch to Vertical Split (Stacked)' : 'Switch to Horizontal Split (Side-by-Side)'}
+              className="p-1.5 md:p-2 rounded-lg border border-[var(--border-color)] bg-[var(--bg-panel)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-indigo-500/50 transition-all hidden md:flex items-center gap-1"
+            >
+              {layoutOrientation === 'horizontal' ? <Columns className="h-3.5 w-3.5" /> : <Rows className="h-3.5 w-3.5" />}
+            </button>
+          )}
 
           {/* Theme Toggle */}
           <button

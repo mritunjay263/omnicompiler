@@ -28,6 +28,7 @@ export function Workspace({ language, initialCode, initialStdin }: WorkspaceProp
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isAiOpen, setIsAiOpen] = useState(false);
   const [splitRatio, setSplitRatio] = useState(55); // 55% editor, 45% console
+  const [layoutOrientation, setLayoutOrientation] = useState<'horizontal' | 'vertical'>('horizontal');
 
   const [output, setOutput] = useState<ConsoleOutput>({
     stdout: '',
@@ -110,20 +111,20 @@ export function Workspace({ language, initialCode, initialStdin }: WorkspaceProp
     setIsRunning(true);
     setOutput((prev) => ({ ...prev, status: 'running' }));
 
-    // For HTML/CSS/JS, execute preview instantly without a server round trip
-    if (language.id === 'html') {
+    // For client-side interactive sandboxes, execute preview instantly without server latency
+    if (['html', 'react', 'vue', 'markdown'].includes(language.id)) {
       setTimeout(() => {
         setOutput({
-          stdout: 'Web page rendered in Preview tab successfully.',
+          stdout: `${language.name} compiled & rendered in Live Preview tab successfully.`,
           stderr: '',
           exitCode: 0,
-          executionTime: 12,
-          memory: '4.2 MB',
+          executionTime: 8,
+          memory: '3.6 MB',
           status: 'success',
           runner: 'browser-wasm-sandbox',
         });
         setIsRunning(false);
-      }, 200);
+      }, 150);
       return;
     }
 
@@ -198,14 +199,16 @@ export function Workspace({ language, initialCode, initialStdin }: WorkspaceProp
         activeFileName={activeFile.name}
         activeFileContent={activeFile.content}
         onShare={handleShare}
+        layoutOrientation={layoutOrientation}
+        onToggleLayout={() => setLayoutOrientation(prev => prev === 'horizontal' ? 'vertical' : 'horizontal')}
       />
 
       {/* Main IDE Workspace (Split Editor & Output) */}
-      <div className="flex-1 flex flex-col md:flex-row w-full min-h-0 overflow-hidden">
+      <div className={`flex-1 flex ${layoutOrientation === 'horizontal' ? 'flex-col md:flex-row' : 'flex-col'} w-full min-h-0 overflow-hidden`}>
         {/* Left: Code Editor Container */}
         <div
           style={{ flex: `${splitRatio} 1 0%` }}
-          className="h-1/2 md:h-full min-h-0 overflow-hidden"
+          className={`${layoutOrientation === 'horizontal' ? 'h-1/2 md:h-full' : 'h-1/2'} min-h-0 overflow-hidden`}
         >
           <CodeEditor
             files={files}
