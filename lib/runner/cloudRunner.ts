@@ -104,6 +104,30 @@ const WANDBOX_COMPILERS: Record<string, string> = {
   zig: 'zig-0.12.0',
 };
 
+
+export function sanitizeStderr(rawStderr: string, exitCode: number): string {
+  if (!rawStderr) return '';
+
+  const ignoredPatterns = [
+    /OpenJDK.*Server VM warning/i,
+    /Options -Xverify:none and -noverify were deprecated/i,
+    /Java HotSpot\(TM\).*warning/i,
+    /Picked up JAVA_TOOL_OPTIONS/i,
+    /\[1 of \d+\] Compiling Main/i,
+    /Linking main \.\.\./i,
+    /\(node:\d+\) \[DEP\d+\] DeprecationWarning/i,
+  ];
+
+  const lines = rawStderr.split("\n");
+  const filtered = lines.filter((line) => {
+    const trimmed = line.trim();
+    if (!trimmed) return false;
+    return !ignoredPatterns.some((pattern) => pattern.test(trimmed));
+  });
+
+  return filtered.join("\n").trim();
+}
+
 export async function runInCloud(options: CloudRunOptions): Promise<CloudRunResult> {
   const startTime = Date.now();
   const langKey = options.language.toLowerCase();

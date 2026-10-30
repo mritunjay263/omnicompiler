@@ -234,7 +234,13 @@ export function OutputPanel({
             )}
 
             {output.stderr && (
-              <pre className="text-rose-400 whitespace-pre-wrap break-words mt-2 p-2 rounded bg-rose-500/10 border border-rose-500/20">
+              <pre
+                className={`whitespace-pre-wrap break-words mt-2 p-2.5 rounded font-mono text-xs ${
+                  output.status === 'success' || output.exitCode === 0
+                    ? 'text-amber-300 bg-amber-500/10 border border-amber-500/20'
+                    : 'text-rose-400 bg-rose-500/10 border border-rose-500/20'
+                }`}
+              >
                 {output.stderr}
               </pre>
             )}
