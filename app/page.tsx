@@ -498,7 +498,7 @@ export default function HomePage() {
 
         <div className="max-w-7xl mx-auto pt-6 border-t border-[var(--border-color)]/60 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px]">
           <div>
-            © {new Date().getFullYear()} OmniCompiler. Built with precision for developers worldwide.
+            © 2026 OmniCompiler. Built with precision for developers worldwide.
           </div>
           <div className="flex items-center gap-4">
             <Link href="/privacy" className="hover:underline">Privacy</Link>
