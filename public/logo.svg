@@ -1,22 +1,26 @@
 <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="omni-bg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+    <linearGradient id="omni-bg-v3" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stopColor="#0B0F19" />
-      <stop offset="100%" stopColor="#030712" />
+      <stop offset="100%" stopColor="#020617" />
     </linearGradient>
-    <linearGradient id="omni-border" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+    <linearGradient id="omni-border-v3" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stopColor="#38BDF8" />
-      <stop offset="50%" stopColor="#6366F1" />
-      <stop offset="100%" stopColor="#10B981" />
+      <stop offset="50%" stopColor="#818CF8" />
+      <stop offset="100%" stopColor="#34D399" />
     </linearGradient>
-    <linearGradient id="omni-code" x1="8" y1="12" x2="56" y2="52" gradientUnits="userSpaceOnUse">
+    <linearGradient id="omni-prism-l" x1="8" y1="12" x2="32" y2="52" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stopColor="#38BDF8" />
-      <stop offset="100%" stopColor="#10B981" />
+      <stop offset="100%" stopColor="#6366F1" />
+    </linearGradient>
+    <linearGradient id="omni-prism-r" x1="32" y1="12" x2="56" y2="52" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stopColor="#A855F7" />
+      <stop offset="100%" stopColor="#06B6D4" />
     </linearGradient>
   </defs>
-  <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#omni-bg)" stroke="url(#omni-border)" stroke-width="2.5" />
-  <path d="M22 20L10 32L22 44" stroke="url(#omni-code)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M42 20L54 32L42 44" stroke="url(#omni-code)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M36 16L28 48" stroke="#A855F7" stroke-width="4.5" stroke-linecap="round"/>
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#omni-bg-v3)" stroke="url(#omni-border-v3)" stroke-width="2.2" />
+  <path d="M22 18L10 32L22 46" stroke="url(#omni-prism-l)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M42 18L54 32L42 46" stroke="url(#omni-prism-r)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M36 14L28 50" stroke="#34D399" stroke-width="4" stroke-linecap="round"/>
   <circle cx="32" cy="32" r="3.5" fill="#38BDF8"/>
 </svg>
